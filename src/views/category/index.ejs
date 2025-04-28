@@ -1,0 +1,6 @@
+<%- include('../partials/header.ejs') %>
+<h1>crud categorias</h1>
+<% categories.forEach(category => { %>
+  <p>nombre: <%=category.NOMBRE%></p>
+<% }) %>
+<%- include('../partials/footer') %>
