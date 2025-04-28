@@ -1,4 +1,4 @@
-import ModelBase from "../shared/model-base";
+import ModelBase from "../shared/model-base.js";
 
 class Product extends ModelBase{
   constructor(
@@ -26,6 +26,18 @@ class Product extends ModelBase{
     this.precioEnvio = precioEnvio;
     this.cuotas = cuotas;
     this.imagen = imagen;
+  }
+
+  static getAll(conexion) {
+    return new Promise((resolve, reject) => {
+      conexion.query(
+        "SELECT * FROM PRODUCTOS WHERE deleted_at IS NULL",
+        (error, result) => {
+          if (error) return reject(error);
+          return resolve(result);
+        }
+      );
+    });
   }
 }
 
