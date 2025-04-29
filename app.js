@@ -19,5 +19,5 @@ app.use(categoryRouter);
 app.use(productRouter);
 
 app.listen(PORT, ()=>{
-  console.log(`I'M ALIVE => PORT: ${PORT}`);
+  console.log(`🕺 I'M ALIVE => PORT: ${PORT}`);
 })

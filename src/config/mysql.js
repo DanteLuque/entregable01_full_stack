@@ -15,7 +15,7 @@ conexion.connect((err) => {
     return;
   }
 
-  console.log("Conexión exitosa");
+  console.log(`✅ Conexión exitosa con la base de datos "${process.env.DB}"`);
 })
 
 export default conexion;
