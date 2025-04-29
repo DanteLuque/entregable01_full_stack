@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import homeRouter from './src/routes/home.route.js';
+import catalogRouter from './src/routes/catatog.route.js';
 import categoryRouter from './src/routes/category.route.js';
 import productRouter from './src/routes/product.route.js';
 import dotenv from "dotenv";
@@ -15,6 +16,7 @@ app.set('view engine', 'ejs');
 app.set('views', './src/views');
 app.use(express(express.json));
 app.use(homeRouter);
+app.use(catalogRouter);
 app.use(categoryRouter);
 app.use(productRouter);
 

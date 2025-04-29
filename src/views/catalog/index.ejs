@@ -1,0 +1,6 @@
+<%- include('../partials/header.ejs') %>
+<h1>catalog productos</h1>
+<% products.forEach(product => { %>
+  <p>nombre: <%=product.NOMBRE%></p>
+<% }) %>
+<%- include('../partials/footer') %>
