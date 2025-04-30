@@ -31,7 +31,7 @@ class Product extends ModelBase{
   static getAll(conexion) {
     return new Promise((resolve, reject) => {
       conexion.query(
-        "SELECT * FROM PRODUCTOS WHERE deleted_at IS NULL",
+        "SELECT * FROM VIEW_PRODUCTS_WITH_CATEGORY WHERE deleted_at IS NULL;",
         (error, result) => {
           if (error) return reject(error);
           return resolve(result);

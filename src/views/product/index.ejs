@@ -1,6 +1,60 @@
 <%- include('../partials/header.ejs') %>
-<h1>crud productos</h1>
-<% products.forEach(product => { %>
-  <p>nombre: <%=product.NOMBRE%></p>
-<% }) %>
+<main class="flex-fill">
+  <section class="container mt-3">
+    <div class="card-header row g-2 align-items-center">
+      <div class="col-md-4">
+        <h3 class="mb-0">Gestion de productos</h3>
+      </div>
+      <div class="col-md-6">
+        <form class="d-flex" method="GET" action="/products/search">
+          <input type="text" name="q" class="form-control me-2" placeholder="Buscar productos por nombre, marca o modelo..." value="<%= searchTerm || '' %>" />
+          <button type="submit" class="btn btn-outline-primary"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </form>
+      </div>
+      <div class="col-md-2 text-end">
+        <a href="/products/create" class="btn btn-sm btn-primary">Registrar</a>
+      </div>
+    </div>
+    <div class="card-body">
+      <table class="table table-sm table-striped">
+        <thead>
+          <tr>
+            <th>N°</th>
+            <th>Nombre</th>
+            <th>Categoria</th>
+            <th>marca</th>
+            <th>modelo</th>
+            <th>precio</th>
+            <th>Operaciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% products.forEach((product, index)=> { %>
+            <tr>
+              <td><%= index + 1 %></td>
+              <td><%= product.NOMBRE%></td>
+              <td><%= product.CATEGORIA_NOMBRE %></td>
+              <td><%= product.MARCA || 'No especificado'%></td>
+              <td><%= product.MODELO || 'No especificado'%></td>
+              <td><%= (product.PRECIO!==0) ? product.PRECIO : "gratis" %></td>
+              <td>
+                <a href="/products/view/<%= product.ID %>" class="btn btn-sm btn-success"><i class="fa-solid fa-circle-info"></i></a>
+                <a href="/products/edit/<%= product.ID %>" class="btn btn-sm btn-info"><i class="fa-solid fa-pen-to-square"></i></a>
+                <a href="/products/delete/<%= product.ID %>" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i></a>
+              </td>
+            </tr>
+            <% }) %>
+            <% if (products.length === 0) { %>
+              <tr>
+                <td colspan="7" class="text-center">
+                  No se encontraron resultados<%= searchTerm ? ` para "${searchTerm}"` : '' %>.
+                </td>
+              </tr>
+            <% } %>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
 <%- include('../partials/footer') %>
