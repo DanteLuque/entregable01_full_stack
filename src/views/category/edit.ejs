@@ -1,14 +1,23 @@
 <%- include('../partials/header') %>
-<section class="container mt-5">
-    <h2>Editar Categoría</h2>
-    <form action="/categories/edit/<%= category.ID %>" method="POST" id="formulario-registro" data-confirm data-title="¿Deseas actualizar?" data-text="Estás por actualizar la información.">
-        <div class="mb-3">
-            <label for="nombre" class="form-label">Nombre de la Categoría <span class="text-danger">*</span></label>
-            <input type="text" name="nombre" id="nombre" class="form-control" value="<%= category.NOMBRE %>" required />
-        </div>
-
-        <button type="submit" class="btn btn-success">Actualizar</button>
-        <a href="/categories" class="btn btn-secondary">Cancelar</a>
-    </form>
-</section>
-<%- include('../partials/footer') %>
+    <section class="container mt-5">
+        <form action="/categories/edit/<%= category.ID %>" method="POST" id="formulario-registro" data-confirm
+            data-title="¿Deseas actualizar?" data-text="Estás por actualizar la información.">
+            <div class="card">
+                <div class="card-header">
+                    <strong>Editar Categoría</strong>
+                </div>
+                <div class="card-body">
+                    <div class="form-floating mb-3">
+                        <input type="text" name="nombre" id="nombre" class="form-control" value="<%= category.NOMBRE %>"
+                            placeholder="Nombre de la categoría" required />
+                        <label for="nombre">Nombre de la Categoría</label>
+                    </div>
+                </div>
+                <div class="card-footer text-end">
+                    <button type="submit" class="btn btn-success">Actualizar</button>
+                    <a href="/categories" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </div>
+        </form>
+    </section>
+    <%- include('../partials/footer') %>
