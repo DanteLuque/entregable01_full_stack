@@ -46,6 +46,22 @@ export const viewProduct = async (req, res) => {
   }
 };
 
+export const viewProductToCatalog = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const product = await Product.getById(conexion, id);
+
+    if (!product) {
+      return res.status(404).send('producto no encontrado');
+    }
+
+    res.render('catalog/product/view', { product });
+  } catch (error) {
+    console.error('Error al obtener detalles del producto:', error);
+    res.status(500).send('Error al cargar los detalles del producto');
+  }
+};
+
 export const showCreateForm = async (req, res) => {
   try {
     const categories = await Category.getAll(conexion);

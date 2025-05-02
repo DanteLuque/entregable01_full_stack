@@ -65,14 +65,16 @@
                         <p class="card-text text-muted small mb-2"><%= product.CATEGORIA_NOMBRE %></p>
                         
                         <div class="flex-grow-1">
-                            <% if (product.DESCUENTO) { %>
+                            <% if (parseFloat(product.PRECIO) === 0) { %>
+                                <h4 class="text-success mb-3">Gratis</h4>
+                            <% } else if (product.DESCUENTO) { %>
                                 <div class="d-flex align-items-center mb-2">
-                                    <h4 class="text-success mb-0">
-                                        $<%= (parseFloat(product.PRECIO) - (parseFloat(product.PRECIO) * parseFloat(product.DESCUENTO)/100)).toFixed(2) %>
-                                    </h4>
-                                    <small class="text-decoration-line-through ms-2 text-muted">
-                                        $<%= parseFloat(product.PRECIO).toFixed(2) %>
-                                    </small>
+                                  <h4 class="text-success mb-0">
+                                    $<%= (parseFloat(product.PRECIO) - (parseFloat(product.PRECIO) * parseFloat(product.DESCUENTO) / 100)).toFixed(2) %>
+                                  </h4>
+                                  <small class="text-decoration-line-through ms-2 text-muted">
+                                    $<%= parseFloat(product.PRECIO).toFixed(2) %>
+                                  </small>
                                 </div>
                             <% } else { %>
                                 <h4 class="text-primary mb-3">$<%= parseFloat(product.PRECIO).toFixed(2) %></h4>
@@ -92,7 +94,7 @@
 
                     <div class="card-footer border-0 bg-transparent">
                         <div class="d-grid gap-2">
-                            <a href="/products/view/<%= product.ID %>" 
+                            <a href="/catalog/product/<%= product.ID %>" 
                                class="btn btn-outline-primary btn-sm">
                                 <i class="fa-solid fa-eye me-1"></i> Ver detalles
                             </a>

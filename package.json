@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node app",
     "dev": "nodemon app",
+    "seed": "node seed/seed",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
