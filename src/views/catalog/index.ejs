@@ -2,11 +2,18 @@
 
 <main class="container my-5">
     <h2 class="text-center mb-4">Catálogo de Productos</h2>
+
+    <div class="mb-4">
+        <form class="d-flex" method="GET" action="/catalog/search">
+            <input type="text" name="q" class="form-control me-2" placeholder="Buscar productos por nombre, marca o modelo..." value="<%= searchTerm || '' %>" />
+            <button type="submit" class="btn btn-outline-primary"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </form>
+    </div>
+
     <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
         <% products.forEach(product => { %>
             <div class="col">
                 <div class="card h-100 shadow-sm">
-                    <!-- Imagen -->
                     <div class="card-img-top position-relative">
                         <% if (product.IMAGEN) { %>
                             <img src="<%= product.IMAGEN %>" 
@@ -19,7 +26,6 @@
                             </div>
                         <% } %>
                         
-                        <!-- Etiqueta de descuento -->
                         <% if (product.DESCUENTO > 0) { %>
                             <span class="position-absolute top-0 end-0 bg-success text-white px-2 py-1 rounded-start">
                                 -<%= product.DESCUENTO %>% 
@@ -31,7 +37,6 @@
                         <h5 class="card-title"><%= product.NOMBRE %></h5>
                         <p class="card-text text-muted small mb-2"><%= product.CATEGORIA_NOMBRE %></p>
                         
-                        <!-- Precios -->
                         <div class="flex-grow-1">
                             <% if (product.DESCUENTO) { %>
                                 <div class="d-flex align-items-center mb-2">
@@ -46,14 +51,13 @@
                                 <h4 class="text-primary mb-3">$<%= parseFloat(product.PRECIO).toFixed(2) %></h4>
                             <% } %>
                             
-                            <!-- Envío -->
-                            <% if (!product.PRECIO_ENVIO) { %>
-                                <div class="text-success small mb-2">
-                                    <i class="fa-solid fa-truck me-1"></i> Envío gratis
-                                </div>
-                            <% }else{ %>
+                            <% if (product.PRECIO_ENVIO && product.PRECIO_ENVIO>0) { %>
                                 <div class="text-muted small mb-2">
                                     <i class="fa-solid fa-truck me-1"></i> Envío: $<%= parseFloat(product.PRECIO_ENVIO).toFixed(2) %>
+                                </div>
+                            <% }else{ %>
+                                <div class="text-success small mb-2">
+                                    <i class="fa-solid fa-truck me-1"></i> Envío gratis
                                 </div>
                             <%}%>
                         </div>

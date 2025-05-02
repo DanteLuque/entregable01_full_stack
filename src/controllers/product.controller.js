@@ -15,7 +15,7 @@ export const getAllProducts = async (req, res) => {
 export const getAllProductsToCatalog = async (req, res) => {
   try {
     const products = await Product.getAll(conexion);
-    res.render('catalog/index', { products });
+    res.render('catalog/index', { products, searchTerm: '' });
   } catch (error) {
     console.error('Error al obtener productos:', error);
     res.status(500).send('Error al cargar productos');
@@ -143,6 +143,17 @@ export const searchProducts = async (req, res) => {
     const searchTerm = req.query.q;
     const products = await Product.search(conexion, searchTerm);
     res.render('product/index', { products, searchTerm });
+  } catch (error) {
+    console.error('Error al buscar productos:', error);
+    res.status(500).send('Error al buscar productos');
+  }
+};
+
+export const searchProductsToCatalog = async (req, res) => {
+  try {
+    const searchTerm = req.query.q;
+    const products = await Product.search(conexion, searchTerm);
+    res.render('catalog/index', { products, searchTerm });
   } catch (error) {
     console.error('Error al buscar productos:', error);
     res.status(500).send('Error al buscar productos');
