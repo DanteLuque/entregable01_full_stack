@@ -1,6 +1,47 @@
 <%- include('../partials/header.ejs') %>
-<h1>crud categorias</h1>
-<% categories.forEach(category => { %>
-  <p>nombre: <%=category.NOMBRE%></p>
-<% }) %>
+<main class="flex-fill">
+  <section class="container mt-3">
+    <div class="card-header row g-2 align-items-center">
+      <div class="col-md-10">
+        <h3 class="mb-0">Gestión de Categorías</h3>
+      </div>
+      <div class="col-md-2 text-end">
+        <a href="/categories/create" class="btn btn-sm btn-primary">Registrar</a>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <table class="table table-sm table-striped">
+        <thead>
+          <tr>
+            <th>N°</th>
+            <th>Nombre</th>
+            <th>Operaciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% categories.forEach((category, index) => { %>
+            <tr>
+              <td><%= index + 1 %></td>
+              <td><%= category.NOMBRE %></td>
+              <td>
+                <a href="/categories/edit/<%= category.ID %>" class="btn btn-sm btn-info">
+                  <i class="fa-solid fa-pen-to-square"></i>
+                </a>
+                <a href="/categories/delete/<%= category.ID %>" class="btn btn-sm btn-danger">
+                  <i class="fa-solid fa-trash"></i>
+                </a>
+              </td>
+            </tr>
+          <% }) %>
+          <% if (categories.length === 0) { %>
+            <tr>
+              <td colspan="3" class="text-center">No hay categorías registradas.</td>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</main>
 <%- include('../partials/footer') %>
