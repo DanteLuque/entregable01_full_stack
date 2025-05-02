@@ -1,66 +1,106 @@
 <%- include('../partials/header') %>
-<section class="container mt-5">
-    <h2>Crear Producto</h2>
-    <form action="/products/create" method="POST" enctype="multipart/form-data" id="formulario-registro" data-confirm data-title="¿Deseas guardar?" data-text="Estás por guardar la información.">
-        <div class="mb-3">
-            <label for="nombre" class="form-label">Nombre<span class="text-danger">*</span></label>
-            <input type="text" name="nombre" id="nombre" class="form-control" required />
-        </div>
+    <section class="container mt-5">
+        <form action="/products/create" method="POST" enctype="multipart/form-data" id="formulario-registro"
+            data-confirm data-title="¿Deseas guardar?" data-text="Estás por guardar la información.">
+            <div class="card">
+                <div class="card-header"><strong>Registrar Producto</strong></div>
+                <div class="card-body">
+                    <div class="row g-2">
+                        <div class="col-md-6 mb-3">
+                            <div class="form-floating">
+                                <input type="text" name="nombre" id="nombre" class="form-control" placeholder="Nombre"
+                                    required />
+                                <label for="nombre">Nombre del producto</label>
+                            </div>
+                        </div>
 
-        <div class="mb-3">
-            <label for="idCategoria" class="form-label">Categoría<span class="text-danger">*</span></label>
-            <select name="idCategoria" id="idCategoria" class="form-control" required>
-                <option value="" disabled selected>Selecciona una categoría</option>
-                <% categories.forEach(category => { %>
-                    <option value="<%= category.ID %>"><%= category.NOMBRE %></option>
-                <% }) %>
-            </select>
-        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="form-floating">
+                                <select name="idCategoria" id="idCategoria" class="form-select" required>
+                                    <option value="" disabled selected>Selecciona una categoría</option>
+                                    <% categories.forEach(category=> { %>
+                                        <option value="<%= category.ID %>">
+                                            <%= category.NOMBRE %>
+                                        </option>
+                                        <% }) %>
+                                </select>
+                                <label for="idCategoria">Categoría</label>
+                            </div>
+                        </div>
+                    </div>
 
-        <div class="mb-3">
-            <label for="descripcion" class="form-label">Descripción<span class="text-danger">*</span></label>
-            <textarea name="descripcion" id="descripcion" required class="form-control"></textarea>
-        </div>
+                    <div class="row g-2">
+                        <div class="col-md-6 mb-3">
+                            <div class="form-floating">
+                                <input type="text" name="marca" id="marca" class="form-control" placeholder="Marca" />
+                                <label for="marca">Marca</label>
+                            </div>
+                        </div>
 
-        <div class="mb-3">
-            <label for="marca" class="form-label">Marca</label>
-            <input type="text" name="marca" id="marca"  class="form-control" />
-        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="form-floating">
+                                <input type="text" name="modelo" id="modelo" class="form-control"
+                                    placeholder="Modelo" />
+                                <label for="modelo">Modelo</label>
+                            </div>
+                        </div>
+                    </div>
 
-        <div class="mb-3">
-            <label for="modelo" class="form-label">Modelo</label>
-            <input type="text" name="modelo" id="modelo"  class="form-control" />
-        </div>
+                    <div class="mb-3">
+                        <label for="descripcion" class="form-label">Descripción <span
+                                class="text-danger">*</span></label>
+                        <textarea name="descripcion" id="descripcion" class="form-control" rows="3" required></textarea>
+                    </div>
 
-        <div class="mb-3">
-            <label for="precio" class="form-label">Precio<span class="text-danger">*</span></label>
-            <input type="number" min="0" step="0" name="precio" id="precio" required class="form-control" required />
-        </div>
+                    <div class="row g-2">
+                        <div class="col-md-4 mb-3">
+                            <div class="form-floating">
+                                <input type="number" name="precio" id="precio" class="form-control" min="0" step="0.01"
+                                    placeholder="Precio" required />
+                                <label for="precio">Precio</label>
+                            </div>
+                        </div>
 
-        <div class="mb-3">
-            <label for="descuento" class="form-label">Descuento (%)</label>
-            <input type="number" min="0" step="0" name="descuento" id="descuento" class="form-control" />
-        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="form-floating">
+                                <input type="number" name="descuento" id="descuento" class="form-control" min="0"
+                                    step="1" placeholder="Descuento" />
+                                <label for="descuento">Descuento (%)</label>
+                            </div>
+                        </div>
 
-        <div class="mb-3">
-            <label for="precioEnvio" class="form-label">Precio de Envío</label>
-            <input type="number" min="0" step="0" name="precioEnvio" id="precioEnvio" class="form-control" />
-        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="form-floating">
+                                <input type="number" name="precioEnvio" id="precioEnvio" class="form-control" min="0"
+                                    step="0.01" placeholder="Precio envío" />
+                                <label for="precioEnvio">Precio de Envío</label>
+                            </div>
+                        </div>
+                    </div>
 
-        <div class="mb-3">
-            <label for="cuotas" class="form-label">Cuotas</label>
-            <input type="number" min="2" step="2" name="cuotas" id="cuotas" class="form-control" />
-        </div>
+                    <div class="row g-2">
+                        <div class="col-md-6 mb-3">
+                            <div class="form-floating">
+                                <input type="number" name="cuotas" id="cuotas" class="form-control" min="2" step="2"
+                                    placeholder="Cuotas" />
+                                <label for="cuotas">Cuotas</label>
+                            </div>
+                        </div>
 
-        <div class="mb-3">
-            <label for="imagen" class="form-label">Imagen</label>
-            <img id="preview" alt="Vista previa" class="img-thumbnail mb-2" width="150" style="display: none;" />
-            <input type="file" name="image" class="form-control" id="imageInput" />
-        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="imageInput" class="form-label">Imagen</label>
+                            <img id="preview" alt="Vista previa" class="img-thumbnail mb-2" width="150"
+                                style="display: none;" />
+                            <input type="file" name="image" class="form-control" id="imageInput" />
+                        </div>
+                    </div>
+                </div>
 
-        <button type="submit" class="btn btn-primary">Guardar</button>
-        <a href="/products" class="btn btn-secondary">Cancelar</a>
-    </form>
-</section>
-
-<%- include('../partials/footer') %>
+                <div class="card-footer text-end">
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <a href="/products" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </div>
+        </form>
+    </section>
+    <%- include('../partials/footer') %>
