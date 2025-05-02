@@ -126,3 +126,14 @@ export const updateProduct = async (req, res) => {
     res.status(500).send('Error al actualizar el producto');
   }
 };
+
+export const deleteProduct = async (req, res) => {
+  try {
+    const id = req.params.id;
+    await Product.delete(conexion, id);
+    res.redirect('/products');
+  } catch (error) {
+    console.error('Error al eliminar un producto:', error);
+    res.status(500).send('Error al eliminar el producto');
+  }
+};
