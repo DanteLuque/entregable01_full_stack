@@ -36,9 +36,8 @@
               <td><%= product.CATEGORIA_NOMBRE %></td>
               <td><%= product.MARCA || 'No especificado'%></td>
               <td><%= product.MODELO || 'No especificado'%></td>
-              <td><%= (product.PRECIO!==0) ? product.PRECIO : "gratis" %></td>
+              <td><%= product.PRECIO!=0.00 ? product.PRECIO : "gratis" %></td>
               <td>
-                <a href="/products/view/<%= product.ID %>" class="btn btn-sm btn-success"><i class="fa-solid fa-circle-info"></i></a>
                 <a href="/products/edit/<%= product.ID %>" class="btn btn-sm btn-info"><i class="fa-solid fa-pen-to-square"></i></a>
                 <a href="/products/delete/<%= product.ID %>" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i></a>
               </td>

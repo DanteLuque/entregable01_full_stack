@@ -1,0 +1,66 @@
+<%- include('../partials/header') %>
+<section class="container mt-5">
+    <h2>Crear Producto</h2>
+    <form action="/products/create" method="POST" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre</label>
+            <input type="text" name="nombre" id="nombre" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+            <label for="idCategoria" class="form-label">Categoría</label>
+            <select name="idCategoria" id="idCategoria" class="form-control" required>
+                <option value="" disabled selected>Selecciona una categoría</option>
+                <% categories.forEach(category => { %>
+                    <option value="<%= category.ID %>"><%= category.NOMBRE %></option>
+                <% }) %>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="descripcion" class="form-label">Descripción</label>
+            <textarea name="descripcion" id="descripcion" required class="form-control"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="marca" class="form-label">Marca</label>
+            <input type="text" name="marca" id="marca" required class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label for="modelo" class="form-label">Modelo</label>
+            <input type="text" name="modelo" id="modelo" required class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label for="precio" class="form-label">Precio</label>
+            <input type="number" min="0" step="0" name="precio" id="precio" required class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+            <label for="descuento" class="form-label">Descuento (%)</label>
+            <input type="number" min="0" step="0" name="descuento" id="descuento" required class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label for="precioEnvio" class="form-label">Precio de Envío</label>
+            <input type="number" min="0" step="0" name="precioEnvio" id="precioEnvio" required class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label for="cuotas" class="form-label">Cuotas</label>
+            <input type="number" min="0" step="0" name="cuotas" id="cuotas" required class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label for="imagen" class="form-label">Imagen</label>
+            <img id="preview" alt="Vista previa" class="img-thumbnail mb-2" width="150" style="display: none;" />
+            <input type="file" name="image" class="form-control" id="imageInput" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <a href="/products" class="btn btn-secondary">Cancelar</a>
+    </form>
+</section>
+
+<%- include('../partials/footer') %>
