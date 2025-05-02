@@ -61,10 +61,10 @@ export const saveProduct = async (req, res) => {
       marca || null,
       modelo || null,
       imagen || null,
-      parseFloat(precio) || null,
-      parseFloat(descuento) || null,
-      parseFloat(precioEnvio) || null,
-      parseInt(cuotas) || null
+      parseFloat(precio),
+      descuento ? parseFloat(descuento) : null,
+      precioEnvio ? parseFloat(precioEnvio) : null,
+      cuotas ? parseInt(cuotas) : null
     );
 
     await product.create(conexion);
@@ -107,9 +107,9 @@ export const updateProduct = async (req, res) => {
       idCategoria,
       nombre,
       descripcion,
-      marca,
-      modelo,
-      imagen,
+      marca || null,
+      modelo || null,
+      imagen || null,
       parseFloat(precio),
       descuento ? parseFloat(descuento) : null,
       precioEnvio ? parseFloat(precioEnvio) : null,
