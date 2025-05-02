@@ -3,11 +3,11 @@
     <h2>Editar Producto</h2>
     <form action="/products/edit/<%= product.ID %>" method="POST" enctype="multipart/form-data">
         <div class="mb-3">
-            <label for="nombre" class="form-label">Nombre</label>
+            <label for="nombre" class="form-label">Nombre<span class="text-danger">*</span></label>
             <input type="text" name="nombre" id="nombre" class="form-control" value="<%= product.NOMBRE %>" required />
         </div>
     <div class="mb-3">
-        <label for="idCategoria" class="form-label">Categoría</label>
+        <label for="idCategoria" class="form-label">Categoría<span class="text-danger">*</span></label>
         <select name="idCategoria" id="idCategoria" class="form-control" required>
             <option value="" disabled>Selecciona una categoría</option>
             <% categories.forEach(category => { %>
@@ -17,38 +17,38 @@
     </div>
 
     <div class="mb-3">
-        <label for="descripcion" class="form-label">Descripción</label>
+        <label for="descripcion" class="form-label">Descripción<span class="text-danger">*</span></label>
         <textarea name="descripcion" id="descripcion" required class="form-control"><%= product.DESCRIPCION %></textarea>
     </div>
 
     <div class="mb-3">
         <label for="marca" class="form-label">Marca</label>
-        <input type="text" name="marca" id="marca" class="form-control" value="<%= product.MARCA || '' %>" />
+        <input type="text" name="marca" id="marca" class="form-control" value="<%= product.MARCA || null %>" />
     </div>
 
     <div class="mb-3">
         <label for="modelo" class="form-label">Modelo</label>
-        <input type="text" name="modelo" id="modelo" class="form-control" value="<%= product.MODELO || '' %>" />
+        <input type="text" name="modelo" id="modelo" class="form-control" value="<%= product.MODELO || null %>" />
     </div>
 
     <div class="mb-3">
-        <label for="precio" class="form-label">Precio</label>
+        <label for="precio" class="form-label">Precio<span class="text-danger">*</span></label>
         <input type="number" min="0" step="0.01" name="precio" id="precio" class="form-control" value="<%= product.PRECIO %>" required />
     </div>
 
     <div class="mb-3">
         <label for="descuento" class="form-label">Descuento (%)</label>
-        <input type="number" min="0" step="1" name="descuento" id="descuento" class="form-control" value="<%= product.DESCUENTO || 0 %>" />
+        <input type="number" min="0" step="1" name="descuento" id="descuento" class="form-control" value="<%= product.DESCUENTO || null %>" />
     </div>
 
     <div class="mb-3">
         <label for="precioEnvio" class="form-label">Precio de Envío</label>
-        <input type="number" min="0" step="0.01" name="precioEnvio" id="precioEnvio" class="form-control" value="<%= product.PRECIO_ENVIO || 0 %>" />
+        <input type="number" min="0" step="0.01" name="precioEnvio" id="precioEnvio" class="form-control" value="<%= product.PRECIO_ENVIO || null %>" />
     </div>
 
     <div class="mb-3">
         <label for="cuotas" class="form-label">Cuotas</label>
-        <input type="number" min="0" step="1" name="cuotas" id="cuotas" class="form-control" value="<%= product.CUOTAS || 0 %>" />
+        <input type="number" min="2" step="2" name="cuotas" id="cuotas" class="form-control" value="<%= product.CUOTAS || null %>" />
     </div>
 
     <div class="mb-3">

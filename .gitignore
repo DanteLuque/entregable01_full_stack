@@ -2,4 +2,3 @@ node_modules
 .env
 public/images/*
 !public/images/.gitkeep
-!public/images/image-not-found.jpg

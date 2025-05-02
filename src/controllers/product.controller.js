@@ -5,7 +5,6 @@ import Product from '../models/product.model.js';
 export const getAllProducts = async (req, res) => {
   try {
     const products = await Product.getAll(conexion);
-    console.log(products);
     res.render('product/index', { products, searchTerm: '' });
   } catch (error) {
     console.error('Error al obtener productos:', error);
@@ -59,13 +58,13 @@ export const saveProduct = async (req, res) => {
       idCategoria,
       nombre,
       descripcion,
-      marca,
-      modelo,
-      imagen,
-      parseFloat(precio),
-      parseFloat(descuento),
-      parseFloat(precioEnvio),
-      parseInt(cuotas)
+      marca || null,
+      modelo || null,
+      imagen || null,
+      parseFloat(precio) || null,
+      parseFloat(descuento) || null,
+      parseFloat(precioEnvio) || null,
+      parseInt(cuotas) || null
     );
 
     await product.create(conexion);

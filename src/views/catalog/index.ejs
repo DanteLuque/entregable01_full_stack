@@ -1,6 +1,76 @@
 <%- include('../partials/header.ejs') %>
-<h1>catalog productos</h1>
-<% products.forEach(product => { %>
-  <p>nombre: <%=product.NOMBRE%></p>
-<% }) %>
+
+<main class="container my-5">
+    <h2 class="text-center mb-4">Catálogo de Productos</h2>
+    <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
+        <% products.forEach(product => { %>
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <!-- Imagen -->
+                    <div class="card-img-top position-relative">
+                        <% if (product.IMAGEN) { %>
+                            <img src="<%= product.IMAGEN %>" 
+                                 alt="Imagen de <%= product.NOMBRE %>"
+                                 class="card-img-top img-fluid"
+                                 style="height: 144px; object-fit: cover;">
+                        <% } else { %>
+                            <div class="text-center bg-light py-5">
+                                <i class="fa-solid fa-box-open fa-3x text-muted"></i>
+                            </div>
+                        <% } %>
+                        
+                        <!-- Etiqueta de descuento -->
+                        <% if (product.DESCUENTO > 0) { %>
+                            <span class="position-absolute top-0 end-0 bg-success text-white px-2 py-1 rounded-start">
+                                -<%= product.DESCUENTO %>% 
+                            </span>
+                        <% } %>
+                    </div>
+
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title"><%= product.NOMBRE %></h5>
+                        <p class="card-text text-muted small mb-2"><%= product.CATEGORIA_NOMBRE %></p>
+                        
+                        <!-- Precios -->
+                        <div class="flex-grow-1">
+                            <% if (product.DESCUENTO) { %>
+                                <div class="d-flex align-items-center mb-2">
+                                    <h4 class="text-success mb-0">
+                                        $<%= (parseFloat(product.PRECIO) - (parseFloat(product.PRECIO) * parseFloat(product.DESCUENTO)/100)).toFixed(2) %>
+                                    </h4>
+                                    <small class="text-decoration-line-through ms-2 text-muted">
+                                        $<%= parseFloat(product.PRECIO).toFixed(2) %>
+                                    </small>
+                                </div>
+                            <% } else { %>
+                                <h4 class="text-primary mb-3">$<%= parseFloat(product.PRECIO).toFixed(2) %></h4>
+                            <% } %>
+                            
+                            <!-- Envío -->
+                            <% if (!product.PRECIO_ENVIO) { %>
+                                <div class="text-success small mb-2">
+                                    <i class="fa-solid fa-truck me-1"></i> Envío gratis
+                                </div>
+                            <% }else{ %>
+                                <div class="text-muted small mb-2">
+                                    <i class="fa-solid fa-truck me-1"></i> Envío: $<%= parseFloat(product.PRECIO_ENVIO).toFixed(2) %>
+                                </div>
+                            <%}%>
+                        </div>
+                    </div>
+
+                    <div class="card-footer border-0 bg-transparent">
+                        <div class="d-grid gap-2">
+                            <a href="/products/view/<%= product.ID %>" 
+                               class="btn btn-outline-primary btn-sm">
+                                <i class="fa-solid fa-eye me-1"></i> Ver detalles
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <% }) %>
+    </div>
+</main>
+
 <%- include('../partials/footer') %>

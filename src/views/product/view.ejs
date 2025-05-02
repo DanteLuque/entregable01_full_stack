@@ -17,7 +17,7 @@
                 <div class="col-md-6">
                     <% if (product.IMAGEN) { %>
                         <img src="<%= product.IMAGEN %>" alt="Imagen de <%= product.NOMBRE %>"
-                            class="img-fluid rounded mb-3" style="width: 100%; height: 400px; object-fit: cover; object-position: center;">
+                            class="img-fluid rounded mb-3" style="width: 100%; height: 350px; object-fit: cover; object-position: center;">
                     <% } else { %>
                         <div class="text-center border rounded p-5 mb-3">
                             <i class="fa-solid fa-image fa-5x text-muted"></i>
@@ -28,9 +28,9 @@
                 <div class="col-md-6">
                     <div class="mb-4">
                         <h3 class="mb-3">Información General</h3>
-                        <p><strong>Categoría:</strong> <%= product.CATEGORIA_NOMBRE %></p>
-                        <p><strong>Marca:</strong> <%= product.MARCA || 'No especificada' %></p>
-                        <p><strong>Modelo:</strong> <%= product.MODELO || 'No especificado' %></p>
+                        <p><strong>Categoría:</strong> <%= product.CATEGORIA_NOMBRE || '-----' %></p>
+                        <p><strong>Marca:</strong> <%= product.MARCA || '-----' %></p>
+                        <p><strong>Modelo:</strong> <%= product.MODELO || '-----' %></p>
                     <div class="pricing-info mb-3 mt-4">
                         <div class="d-flex align-items-baseline">
                             <% if (product.DESCUENTO && product.DESCUENTO > 0) { %>
@@ -49,11 +49,17 @@
                         <% if (product.CUOTAS && product.CUOTAS > 0) { %>
                             <p class="text-success mt-2">
                                 <i class="fa-solid fa-credit-card me-1"></i>
-                                Hasta <%= product.CUOTAS %> cuotas <strong>(<%= (parseFloat(product.PRECIO) / parseFloat(product.CUOTAS)).toFixed(2) %> x Mes)</strong>
+                                Hasta <%= product.CUOTAS %> cuotas <strong>
+                                    <%if (parseFloat(product.DESCUENTO)){%>
+                                        "<%= (parseFloat(product.PRECIO - (parseFloat(product.PRECIO) * (parseFloat(product.DESCUENTO) / 100))) / parseFloat(product.CUOTAS)).toFixed(2) %> x Mes"
+                                    <%}else {%>
+                                        "<%= (parseFloat(product.PRECIO) / parseFloat(product.CUOTAS)).toFixed(2) %> x Mes"
+                                    <%}%>
+                                </strong>
                             </p>
                         <% } %>
 
-                        <% if (product.PRECIO_ENVIO !== null) { %>
+                        <% if (parseFloat(product.PRECIO_ENVIO) !== null) { %>
                             <p class="mt-2">
                                 <i class="fa-solid fa-truck me-1"></i>
                                 <% if (parseFloat(product.PRECIO_ENVIO) > 0) { %>
