@@ -5,6 +5,7 @@ import Product from '../models/product.model.js';
 export const getAllProducts = async (req, res) => {
   try {
     const products = await Product.getAll(conexion);
+    console.log(products);
     res.render('product/index', { products, searchTerm: '' });
   } catch (error) {
     console.error('Error al obtener productos:', error);

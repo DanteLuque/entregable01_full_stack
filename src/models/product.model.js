@@ -157,7 +157,7 @@ class Product extends ModelBase{
     return new Promise((resolve, reject) => {
       const term = `%${searchTerm}%`;
       conexion.query(
-        "SELECT * FROM PRODUCTOS WHERE (NOMBRE LIKE ? OR MARCA LIKE ? OR MODELO LIKE ?) AND deleted_at IS NULL",
+        "SELECT * FROM VIEW_PRODUCTS_WITH_CATEGORY WHERE (NOMBRE LIKE ? OR MARCA LIKE ? OR MODELO LIKE ?) AND deleted_at IS NULL",
         [term, term, term],
         (error, result) => {
           if (error) return reject(error);
