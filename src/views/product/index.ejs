@@ -33,9 +33,9 @@
             <tr>
               <td><%= index + 1 %></td>
               <td><%= product.NOMBRE%></td>
-              <td><%= product.CATEGORIA_NOMBRE %></td>
-              <td><%= product.MARCA || 'No especificado'%></td>
-              <td><%= product.MODELO || 'No especificado'%></td>
+              <td><%= product.CATEGORIA_NOMBRE || '-----'%></td>
+              <td><%= product.MARCA || '-----'%></td>
+              <td><%= product.MODELO || '-----'%></td>
               <td><%= product.PRECIO!=0.00 ? product.PRECIO : "gratis" %></td>
               <td>
                 <a href="/products/view/<%= product.ID %>" class="btn btn-sm btn-success"><i class="fa-solid fa-circle-info"></i></a>

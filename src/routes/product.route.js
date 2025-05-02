@@ -9,6 +9,7 @@ import {
   showEditForm,
   updateProduct,
   deleteProduct,
+  searchProducts
 } from '../controllers/product.controller.js';
 
 const productRouter = express.Router();
@@ -20,4 +21,5 @@ productRouter.get('/products/edit/:id', showEditForm);
 productRouter.post('/products/edit/:id', upload.single('image'), updateProduct);
 productRouter.get('/products/delete/:id', deleteProduct);
 productRouter.get('/products/view/:id', viewProduct);
+productRouter.get('/products/search', searchProducts);
 export default productRouter;

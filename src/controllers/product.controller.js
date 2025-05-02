@@ -137,3 +137,14 @@ export const deleteProduct = async (req, res) => {
     res.status(500).send('Error al eliminar el producto');
   }
 };
+
+export const searchProducts = async (req, res) => {
+  try {
+    const searchTerm = req.query.q;
+    const products = await Product.search(conexion, searchTerm);
+    res.render('product/index', { products, searchTerm });
+  } catch (error) {
+    console.error('Error al buscar productos:', error);
+    res.status(500).send('Error al buscar productos');
+  }
+};
