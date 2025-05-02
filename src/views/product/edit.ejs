@@ -1,7 +1,7 @@
 <%- include('../partials/header') %>
 <section class="container mt-5">
     <h2>Editar Producto</h2>
-    <form action="/products/edit/<%= product.ID %>" method="POST" enctype="multipart/form-data">
+    <form action="/products/edit/<%= product.ID %>" method="POST" enctype="multipart/form-data" id="formulario-registro" data-confirm data-title="¿Deseas actualizar?" data-text="Estás por actualizar la información.">
         <div class="mb-3">
             <label for="nombre" class="form-label">Nombre<span class="text-danger">*</span></label>
             <input type="text" name="nombre" id="nombre" class="form-control" value="<%= product.NOMBRE %>" required />
