@@ -4,12 +4,38 @@
     <h2 class="text-center mb-4">Catálogo de Productos</h2>
 
     <div class="mb-4">
-        <form class="d-flex" method="GET" action="/catalog/search">
-            <input type="text" name="q" class="form-control me-2" placeholder="Buscar productos por nombre, marca o modelo..." value="<%= searchTerm || '' %>" />
-            <button type="submit" class="btn btn-outline-primary"><i class="fa-solid fa-magnifying-glass"></i></button>
-            
+        <form class="row g-2 align-items-end" method="GET" action="/catalog/search">
+          <div class="col-md-6">
+            <label class="form-label">Buscar</label>
+            <input type="text" name="q" class="form-control" placeholder="Buscar productos..." value="<%= searchTerm || '' %>">
+          </div>
+      
+          <div class="col-md-3">
+            <label class="form-label">Ordenar por precio</label>
+            <select name="sort" class="form-select">
+              <option value="">-- Seleccionar --</option>
+              <option value="asc" <%= sort === 'asc' ? 'selected' : '' %>>Precio: Menor a Mayor</option>
+              <option value="desc" <%= sort === 'desc' ? 'selected' : '' %>>Precio: Mayor a Menor</option>
+            </select>
+          </div>
+      
+          <div class="col-md-3">
+            <label class="form-label">Filtrar por categoría</label>
+            <select name="category" class="form-select">
+              <option value="">-- Todas las categorías --</option>
+              <% categories.forEach(cat => { %>
+                <option value="<%= cat.ID %>" <%= category == cat.ID ? 'selected' : '' %>><%= cat.NOMBRE %></option>
+              <% }) %>
+            </select>
+          </div>
+      
+          <div class="col-12 text-end">
+            <button type="submit" class="btn btn-primary mt-2">
+              <i class="fa-solid fa-filter"></i> Aplicar filtros
+            </button>
+          </div>
         </form>
-    </div>
+      </div>
 
     <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
         <% products.forEach(product => { %>

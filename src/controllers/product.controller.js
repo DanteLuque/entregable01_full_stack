@@ -15,12 +15,20 @@ export const getAllProducts = async (req, res) => {
 export const getAllProductsToCatalog = async (req, res) => {
   try {
     const products = await Product.getAll(conexion);
-    res.render('catalog/index', { products, searchTerm: '' });
+    const categories = await Category.getAll(conexion);
+    res.render('catalog/index', {
+      products,
+      searchTerm: '',
+      sort: '',
+      category: '',
+      categories
+    });
   } catch (error) {
     console.error('Error al obtener productos:', error);
     res.status(500).send('Error al cargar productos');
   }
-}
+};
+
 
 export const viewProduct = async (req, res) => {
   try {
@@ -151,9 +159,20 @@ export const searchProducts = async (req, res) => {
 
 export const searchProductsToCatalog = async (req, res) => {
   try {
-    const searchTerm = req.query.q;
-    const products = await Product.search(conexion, searchTerm);
-    res.render('catalog/index', { products, searchTerm });
+    const searchTerm = req.query.q || '';
+    const sort = req.query.sort || '';
+    const category = req.query.category || '';
+
+    const products = await Product.searchAdvanced(conexion, searchTerm, sort, category);
+    const categories = await Category.getAll(conexion);
+
+    res.render('catalog/index', {
+      products,
+      searchTerm,
+      sort,
+      category,
+      categories
+    });
   } catch (error) {
     console.error('Error al buscar productos:', error);
     res.status(500).send('Error al buscar productos');

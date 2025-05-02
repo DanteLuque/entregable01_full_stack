@@ -167,6 +167,36 @@ class Product extends ModelBase{
     });
   }
 
+  static searchAdvanced(conexion, searchTerm = '', sort = '', category = '') {
+    return new Promise((resolve, reject) => {
+      let query = `SELECT * FROM VIEW_PRODUCTS_WITH_CATEGORY WHERE deleted_at IS NULL`;
+      const params = [];
+  
+      if (searchTerm) {
+        query += ` AND (NOMBRE LIKE ? OR MARCA LIKE ? OR MODELO LIKE ?)`;
+        const term = `%${searchTerm}%`;
+        params.push(term, term, term);
+      }
+  
+      if (category) {
+        query += ` AND ID_CATEGORIA = ?`;
+        params.push(category);
+      }
+  
+      if (sort === 'asc') {
+        query += ` ORDER BY PRECIO ASC`;
+      } else if (sort === 'desc') {
+        query += ` ORDER BY PRECIO DESC`;
+      }
+  
+      conexion.query(query, params, (error, result) => {
+        if (error) return reject(error);
+        return resolve(result);
+      });
+    });
+  }
+  
+
 }
 
 export default Product;
