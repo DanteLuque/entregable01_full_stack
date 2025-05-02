@@ -195,8 +195,6 @@ class Product extends ModelBase{
       });
     });
   }
-  
-
 }
 
 export default Product;
