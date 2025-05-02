@@ -16,7 +16,12 @@ app.set('view engine', 'ejs');
 app.set('views', './src/views');
 
 app.get('/', async (req, res) => {
-  res.render('home/index');
+  try{
+    res.render('home/index');
+  }catch(error){
+    console.error('Error al cargar la página de inicio:', error);
+    res.status(500).send('Error al cargar la página de inicio');
+  }
 });
 
 app.use(categoryRouter);

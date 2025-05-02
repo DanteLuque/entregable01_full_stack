@@ -2,11 +2,11 @@ import conexion from '../config/mysql.js';
 import Category from '../models/category.model.js';
 import Product from '../models/product.model.js';
 
-export const getAllProducts = async (req, res)=>{
-  try{
+export const getAllProducts = async (req, res) => {
+  try {
     const products = await Product.getAll(conexion);
-    res.render('product/index', {products, searchTerm: ''});
-  }catch(error){
+    res.render('product/index', { products, searchTerm: '' });
+  } catch (error) {
     console.error('Error al obtener productos:', error);
     res.status(500).send('Error al cargar productos');
   }
@@ -14,11 +14,11 @@ export const getAllProducts = async (req, res)=>{
 
 export const getAllProductsToCatalog = async (req, res) => {
   try {
-      const products = await Product.getAll(conexion);
-      res.render('catalog/index', { products });
+    const products = await Product.getAll(conexion);
+    res.render('catalog/index', { products });
   } catch (error) {
-      console.error('Error al obtener productos:', error);
-      res.status(500).send('Error al cargar productos');
+    console.error('Error al obtener productos:', error);
+    res.status(500).send('Error al cargar productos');
   }
 }
 
@@ -39,8 +39,13 @@ export const viewProduct = async (req, res) => {
 };
 
 export const showCreateForm = async (req, res) => {
-  const categories = await Category.getAll(conexion);
-  res.render('product/create', {categories});
+  try {
+    const categories = await Category.getAll(conexion);
+    res.render('product/create', { categories });
+  } catch (error) {
+    console.error('Error al cargar el formulario de creación:', error);
+    res.status(500).send('Error al cargar el formulario de creación');
+  }
 };
 
 export const saveProduct = async (req, res) => {
@@ -70,5 +75,54 @@ export const saveProduct = async (req, res) => {
     }
     console.error('Error al guardar producto:', error);
     res.status(500).send('Error al guardar el producto');
+  }
+};
+
+export const showEditForm = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const product = await Product.getById(conexion, id);
+    const categories = await Category.getAll(conexion);
+
+    if (!product) {
+      return res.status(404).send('Producto no encontrado');
+    }
+
+    res.render('product/edit', { product, categories });
+  } catch (error) {
+    console.error('Error al obtener producto para editar:', error);
+    res.status(500).send('Error al cargar la página de edición');
+  }
+};
+
+export const updateProduct = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const { idCategoria, nombre, descripcion, marca, modelo, precio, descuento, precioEnvio, cuotas, current_image } = req.body;
+    
+    const imagen = req.file ? `/images/${req.file.filename}` : current_image;
+    
+    const product = new Product(
+      id,
+      idCategoria,
+      nombre,
+      descripcion,
+      marca,
+      modelo,
+      imagen,
+      parseFloat(precio),
+      descuento ? parseFloat(descuento) : null,
+      precioEnvio ? parseFloat(precioEnvio) : null,
+      cuotas ? parseInt(cuotas) : null
+    );
+    
+    await product.update(conexion);
+    res.redirect('/products');
+  } catch (error) {
+    if (error.code === 'LIMIT_FILE_SIZE') {
+      return res.status(400).send('La imagen es demasiado grande, el tamaño máximo permitido es 2MB');
+    }
+    console.error('Error al actualizar producto:', error);
+    res.status(500).send('Error al actualizar el producto');
   }
 };
